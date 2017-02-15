@@ -17,7 +17,7 @@ mongoose.connect(process.env.DB_SERVER, (err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log('Database connected! Server Running Port : ' + process.env.PORT || 3000);
+    console.log('Database connected! Server Running Port : 3000');
   }
 });
 
