@@ -1,0 +1,3 @@
+DB_SERVER = mongodb://yourhost/yourdatabase
+SERVER_ENV = development
+SECRET = yoursecretword
