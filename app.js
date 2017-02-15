@@ -5,11 +5,21 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
 
 const app = express();
+
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DB_SERVER, (err) => {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('Database connected! Server Running Port : ' + process.env.PORT || 3000);
+  }
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
