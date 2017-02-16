@@ -1,5 +1,5 @@
 const passport = require('passport');
-const User = require('../models/users');
+const User = require('../models/User');
 const LocalStrategy = require('passport-local').Strategy;
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
