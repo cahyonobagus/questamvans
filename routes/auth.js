@@ -1,14 +1,11 @@
 'use strict'
 const express = require('express');
 const router = express.Router();
+const auth = require('../controllers/authController');
 
 /* GET home page. */
-router.post('/login', (req, res, next) => {
-  res.send('Login');
-});
+router.post('/login', auth.login);
 
-router.post('/register', (req, res, next) => {
-  res.send('Register')
-})
+router.post('/register', auth.register)
 
 module.exports = router;
