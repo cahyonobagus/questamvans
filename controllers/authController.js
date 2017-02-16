@@ -17,6 +17,9 @@ let register = (req, res, next) => {
       })
     } else {
       res.json({
+        "name" : user.name,
+        "email" : user.email,
+        "username": user.username,
         "message" : "Your registration was successed! You can use your username and password to login"
       })
       // passport.authenticate('local')(req, res, function () {
