@@ -7,6 +7,12 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
+// require model
+const User = require('./models/User');
+
+//initiate passport-local Strategy
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
@@ -30,8 +36,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 
+//LOCAL STRATEGY
+passport.use(new LocalStrategy(User.authenticate()));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/users', users);
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
