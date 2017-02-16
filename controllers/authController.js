@@ -11,7 +11,10 @@ let register = (req, res, next) => {
     username: req.body.username
   }, req.body.password, (err, user) => {
     if (err) {
-      res.send({ alert: 'Oh, snap! Your regisration was unsuccessfull!'})
+      console.log(req.body);
+      res.send({ "error": err,
+        alert: 'Oh, snap! Your regisration was unsuccessfull!'
+      })
     } else {
       res.json({
         "message" : "Your registration was successed! You can use your username and password to login"
