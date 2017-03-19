@@ -1,7 +1,7 @@
 'use strict'
 const Question = require('../models/Question');
 
-let createQuestion = (req, res) => {
+let post = (req, res) => {
   Question.create({
     title: req.body.title,
     content: req.body.content,
@@ -9,15 +9,26 @@ let createQuestion = (req, res) => {
     answers: [],
     upvotes: [],
     downvotes: []
-  }, (err, data) => {
+  }, (err, question) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(data);
+      res.send(question);
+    }
+  })
+}
+
+let getAll = (req, res) => {
+  Question.find({}, (err, questions) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(questions)
     }
   })
 }
 
 module.exports = {
-  createQuestion
+  post,
+  getAll
 }
