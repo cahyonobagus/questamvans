@@ -29,20 +29,25 @@ let getAll = (req, res) => {
 }
 
 let getOne = (req, res) => {
-  Question.findOne({_id: req.params.id})
-    .populate('author')
-    .exec((err, question) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send(question);
-      }
-    })
+  Question.findOne({
+    _id: req.params.id
+  })
+  .populate('author')
+  .exec((err, question) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(question);
+    }
+  })
 }
 
 let update = (req, res) => {
-  Question.findOneAndUpdate({_id: req.param.id},
-  req.body, { new: true },
+  Question.findOneAndUpdate({
+    _id: req.params.id
+  }, req.body, {
+    new: true
+  },
   (err, updatedQuestion) => {
     if (err) {
       res.send(err);
@@ -52,9 +57,22 @@ let update = (req, res) => {
   })
 }
 
+let destroy = (req, res) => {
+  Question.remove({
+    _id: req.params.id
+  }, (err, deleted) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(deleted);
+    }
+  })
+}
+
 module.exports = {
   post,
   getAll,
   getOne,
-  update
+  update,
+  destroy
 }
