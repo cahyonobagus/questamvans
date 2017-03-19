@@ -69,10 +69,59 @@ let destroy = (req, res) => {
   })
 }
 
+
+/* Answers Controllers */
+let postAnswer = (req, res) => {
+  Question.findByIdAndUpdate(req.params.id, {
+    $push: {'answers': req.body}
+  }, {
+    safe: true,
+    upsert: true,
+    new: true
+  }, (err, answeredQuestion) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(answeredQuestion);
+    }
+  })
+}
+
+let getAnswers = (req, res) => {
+  Question.findOne({
+    _id: req.params.id
+  }, (err, question) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(question.answers);
+    }
+  })
+}
+
+let getAnswerDetail = (req, res) => {
+  Question.findOne({
+    _id: req.params.id
+  }, {
+    answers: { $elemMatch: {_id: req.params.answerId} }
+  })
+  .populate('answers.0.author')
+  .exec((err, question) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(question.answers[0]);
+    }
+  })
+}
+
 module.exports = {
   post,
   getAll,
   getOne,
   update,
-  destroy
+  destroy,
+  postAnswer,
+  getAnswers,
+  getAnswerDetail
 }
