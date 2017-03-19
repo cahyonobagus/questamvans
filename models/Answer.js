@@ -1,17 +1,18 @@
 'use strict'
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let answerSchema = mongoose.Schema({
+let answerSchema = Schema({
   author: {
-    type: String,
+    type: Schema.Types.ObjectId,
     ref: 'User',
   },
   content: {
     type: String,
     required: true
   },
-  upvotes: [{type: String, ref: User}],
-  downvotes: [{type: String, ref: User}]
+  upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
+  downvotes: [{type: Schema.Types.ObjectId, ref: 'User'}]
 }, {
   timestamps: true
 })
