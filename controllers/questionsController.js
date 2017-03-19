@@ -9,11 +9,11 @@ let post = (req, res) => {
     answers: [],
     upvotes: [],
     downvotes: []
-  }, (err, question) => {
+  }, (err, newQuestion) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(question);
+      res.send(newQuestion);
     }
   })
 }
@@ -28,7 +28,33 @@ let getAll = (req, res) => {
   })
 }
 
+let getOne = (req, res) => {
+  Question.findOne({_id: req.params.id})
+    .populate('author')
+    .exec((err, question) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(question);
+      }
+    })
+}
+
+let update = (req, res) => {
+  Question.findOneAndUpdate({_id: req.param.id},
+  req.body, { new: true },
+  (err, updatedQuestion) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(updatedQuestion);
+    }
+  })
+}
+
 module.exports = {
   post,
-  getAll
+  getAll,
+  getOne,
+  update
 }
