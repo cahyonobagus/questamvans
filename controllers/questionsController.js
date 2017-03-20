@@ -33,6 +33,7 @@ let getOne = (req, res) => {
     _id: req.params.id
   })
   .populate('author')
+  .populate('answers.author')
   .exec((err, question) => {
     if (err) {
       res.send(err);
